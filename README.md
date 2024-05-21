@@ -1,15 +1,97 @@
 # use-confirm-hook
 
-To install dependencies:
+Customize the browser's `window.confirm` with a _React Component_ of your own.
+
+This module is released as a TypeScript module, make sure your bundler supports them.
+
+Tested with [vite](https://vitejs.dev/) and [bun](https://bun.sh/).
+
+## Install
 
 ```bash
-bun install
+bun add use-confirm-hook
 ```
 
-To run:
+## Usage
 
-```bash
-bun run index.ts
+Create your custom confirm component:
+
+```ts
+// confirm-dialog.tsx
+import { useConfirm } from "use-confirm-hook";
+import {
+   AlertDialog,
+   AlertDialogAction,
+   AlertDialogCancel,
+   AlertDialogContent,
+   AlertDialogDescription,
+   AlertDialogFooter,
+   AlertDialogHeader,
+   AlertDialogTitle,
+} from "./ui/alert-dialog";
+
+export const ConfirmDialog = () => {
+   const { isAsking, message, deny, confirm } = useConfirm();
+
+   return (
+      <AlertDialog open={isAsking} onOpenChange={deny}>
+         <AlertDialogContent>
+            <AlertDialogHeader>
+               <AlertDialogTitle>Confirm</AlertDialogTitle>
+               <AlertDialogDescription>{message}</AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+               <AlertDialogCancel onClick={deny}>Cancel</AlertDialogCancel>
+               <AlertDialogAction onClick={confirm}>Confirm</AlertDialogAction>
+            </AlertDialogFooter>
+         </AlertDialogContent>
+      </AlertDialog>
+   );
+};
 ```
 
-This project was created using `bun init` in bun v1.1.7. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+At the very root of your React App add the _Provider_ and your _React Component_.
+
+```ts
+import { UseConfirmProvider } from "use-confirm-hook";
+import { ConfirmDialog } from "./confirm-dialog";
+import { App } from "./app";
+
+export default function Root() {
+   return (
+      <UseConfirmProvider>
+         <App />
+         <ConfirmDialog />
+      </UseConfirmProvider>
+   );
+}
+```
+
+Ask the user to confirm an action:
+
+```ts
+import { useConfirm } from "use-confirm-hook";
+
+export default function Component() {
+  const { ask } = useConfirm()
+
+  function handleDelete() {
+    const res = await ask("Are you sure?");
+    if (res) {
+      console.log("continue with deletion");
+    } else {
+      console.log("don't delete");
+    }
+  }
+
+   return (
+      <div>
+         <button onClick={handleDelete}>Delete</button>
+      </div>
+   );
+}
+```
+
+## Credits
+
+This project is a simplified version of [https://github.com/tsivinsky/use-confirm](https://github.com/tsivinsky/use-confirm).
