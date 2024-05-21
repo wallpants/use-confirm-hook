@@ -16,64 +16,64 @@ bun add use-confirm-hook
 
 Create your custom confirm component:
 
-```ts
+```tsx
 // confirm-dialog.tsx
 import { useConfirm } from "use-confirm-hook";
 import {
-   AlertDialog,
-   AlertDialogAction,
-   AlertDialogCancel,
-   AlertDialogContent,
-   AlertDialogDescription,
-   AlertDialogFooter,
-   AlertDialogHeader,
-   AlertDialogTitle,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "./ui/alert-dialog";
 
 export const ConfirmDialog = () => {
-   const { isAsking, message, deny, confirm } = useConfirm();
+  const { isAsking, message, deny, confirm } = useConfirm();
 
-   return (
-      <AlertDialog open={isAsking} onOpenChange={deny}>
-         <AlertDialogContent>
-            <AlertDialogHeader>
-               <AlertDialogTitle>Confirm</AlertDialogTitle>
-               <AlertDialogDescription>{message}</AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-               <AlertDialogCancel onClick={deny}>Cancel</AlertDialogCancel>
-               <AlertDialogAction onClick={confirm}>Confirm</AlertDialogAction>
-            </AlertDialogFooter>
-         </AlertDialogContent>
-      </AlertDialog>
-   );
+  return (
+    <AlertDialog open={isAsking} onOpenChange={deny}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Confirm</AlertDialogTitle>
+          <AlertDialogDescription>{message}</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={deny}>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={confirm}>Confirm</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
 };
 ```
 
 At the very root of your React App add the _Provider_ and your _React Component_.
 
-```ts
+```tsx
 import { UseConfirmProvider } from "use-confirm-hook";
 import { ConfirmDialog } from "./confirm-dialog";
 import { App } from "./app";
 
 export default function Root() {
-   return (
-      <UseConfirmProvider>
-         <App />
-         <ConfirmDialog />
-      </UseConfirmProvider>
-   );
+  return (
+    <UseConfirmProvider>
+      <App />
+      <ConfirmDialog />
+    </UseConfirmProvider>
+  );
 }
 ```
 
 Ask the user to confirm an action:
 
-```ts
+```tsx
 import { useConfirm } from "use-confirm-hook";
 
 export default function Component() {
-  const { ask } = useConfirm()
+  const { ask } = useConfirm();
 
   function handleDelete() {
     const res = await ask("Are you sure?");
@@ -84,11 +84,11 @@ export default function Component() {
     }
   }
 
-   return (
-      <div>
-         <button onClick={handleDelete}>Delete</button>
-      </div>
-   );
+  return (
+    <div>
+      <button onClick={handleDelete}>Delete</button>
+    </div>
+  );
 }
 ```
 
