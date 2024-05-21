@@ -1,0 +1,16 @@
+{
+  "name": "use-confirm-hook",
+  "type": "module",
+  "exports": {
+    "default": "./index.tsx"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/react": "^18.3.2",
+    "semantic-release": "^23.1.1"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
