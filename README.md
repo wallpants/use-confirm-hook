@@ -6,6 +6,8 @@ This module is released as a TypeScript module, make sure your bundler supports 
 
 Tested with [vite](https://vitejs.dev/) and [bun](https://bun.sh/).
 
+https://github.com/wallpants/use-confirm-hook/assets/47203170/203b7e0e-ce96-4550-9ced-ac0ee14cb6d0
+
 ## Install
 
 ```bash
