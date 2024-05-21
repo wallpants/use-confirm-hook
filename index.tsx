@@ -2,7 +2,6 @@ import {
   createContext,
   useContext,
   useEffect,
-  useMemo,
   useState,
   type Dispatch,
   type ReactNode,
@@ -23,9 +22,8 @@ const confirmContext = createContext<ConfirmContext | null>(null);
 export function useConfirm() {
   const context = useContext(confirmContext);
   if (!context) throw Error("'useConfirm' use outside of Provider detected");
-  const { message, setMessage, resolve, setResolve, setIsAsking } = context;
-
-  const isAsking = useMemo(() => message !== undefined, [message]);
+  const { message, setMessage, resolve, setResolve, setIsAsking, isAsking } =
+    context;
 
   const ask = async (msg: ReactNode): Promise<boolean> => {
     return new Promise((resolve) => {
@@ -45,7 +43,10 @@ export function useConfirm() {
   };
 
   useEffect(() => {
-    if (!isAsking) setMessage(undefined);
+    if (!isAsking) {
+      // timeout to prevent the message from disappearing whilst modal is still up
+      setTimeout(() => setMessage(undefined), 200);
+    }
   }, [isAsking]);
 
   return { message, isAsking, ask, confirm, deny };
