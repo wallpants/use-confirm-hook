@@ -1,12 +1,12 @@
 # use-confirm-hook
 
-Customize the browser's `window.confirm` with a _React Component_ of your own.
+Replace your browser's `window.confirm` with a custom _React Component_.
 
 This module is released as a TypeScript module, make sure your bundler supports them.
 
 Tested with [vite](https://vitejs.dev/) and [bun](https://bun.sh/).
 
-https://github.com/wallpants/use-confirm-hook/assets/47203170/203b7e0e-ce96-4550-9ced-ac0ee14cb6d0
+<https://github.com/wallpants/use-confirm-hook/assets/47203170/203b7e0e-ce96-4550-9ced-ac0ee14cb6d0>
 
 ## Install
 
