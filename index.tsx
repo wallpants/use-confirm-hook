@@ -45,7 +45,7 @@ export function useConfirm() {
   useEffect(() => {
     if (!isAsking) {
       // timeout to prevent the message from disappearing whilst modal is still up
-      setTimeout(() => setMessage(undefined), 200);
+      setTimeout(() => setMessage(undefined), 300);
     }
   }, [isAsking]);
 
