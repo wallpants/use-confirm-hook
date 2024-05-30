@@ -1,6 +1,13 @@
 {
   "name": "use-confirm-hook",
   "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Replace browser's 'window.confirm' with custom React Component",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wallpants/use-confirm-hook.git"
+  },
   "exports": {
     "default": "./index.tsx"
   },
