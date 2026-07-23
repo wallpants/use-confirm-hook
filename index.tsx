@@ -42,13 +42,6 @@ export function useConfirm() {
     setIsAsking(false);
   };
 
-  useEffect(() => {
-    if (!isAsking) {
-      // timeout to prevent the message from disappearing whilst modal is still up
-      setTimeout(() => setMessage(undefined), 300);
-    }
-  }, [isAsking]);
-
   return { message, isAsking, ask, confirm, deny };
 }
 
@@ -56,6 +49,16 @@ export const UseConfirmProvider = ({ children }: { children: ReactNode }) => {
   const [isAsking, setIsAsking] = useState<ConfirmContext["isAsking"]>(false);
   const [message, setMessage] = useState<ConfirmContext["message"]>();
   const [resolve, setResolve] = useState<ConfirmContext["resolve"]>();
+
+  // timeout to prevent the message from disappearing whilst modal is still
+  // up; lives in the provider (a single instance, unlike useConfirm which
+  // runs in every consumer) and is cancelled if ask() re-opens the modal
+  // before it fires, so it can never wipe the message of an open modal
+  useEffect(() => {
+    if (isAsking) return;
+    const timeout = setTimeout(() => setMessage(undefined), 300);
+    return () => clearTimeout(timeout);
+  }, [isAsking]);
 
   return (
     <confirmContext.Provider
